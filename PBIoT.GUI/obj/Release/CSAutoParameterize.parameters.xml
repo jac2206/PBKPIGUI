@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="PBIoTDBEntities-Web.config Connection String" description="PBIoTDBEntities Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Models.DataBase.csdl|res://*/Models.DataBase.ssdl|res://*/Models.DataBase.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=industriaserverdb.database.windows.net;initial catalog=PBIoTDB;user id=administrador;password=intecol.123;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\TFS_Backup_JAC\\Demos\\MVC\\PBIoT\.GUI\\PBIoT\.GUI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='PBIoTDBEntities']/@connectionString" />
+  </parameter>
+</parameters>

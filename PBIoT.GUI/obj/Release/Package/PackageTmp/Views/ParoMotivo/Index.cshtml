@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Motivos De Paro";
+}
+
+<div id="content">
+    <h2>Paro Motivo</h2>
+
+    <div class="box configPanel">
+
+
+        @*@(Html.Kendo().DropDownList()
+                                                                                      .Name("ParosSelect")
+                                                                                      .DataTextField("Text")
+                                                                                      .DataValueField("Value")
+                                                                                      //.Events(e => e.Change("change"))
+                                                                                      .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                      Text = "DIA",
+                      Value = "1"
+                  },
+                  new SelectListItem() {
+                      Text = "MES",
+                      Value = "2"
+                  },
+                                                                                          //new SelectListItem() {
+                                                                                          //    Text = "MES",
+                                                                                          //    Value = "3"
+                                                                                          //}
+                                                                                      })
+                                                                                      .Value("1")
+                                                                                      .HtmlAttributes(new { style = "width: 10%" })
+
+            )*@
+
+        @(Html.Kendo().DatePicker()
+                                                                                                                                  .Name("Fecha")
+                                                                                                                                  .Value(DateTime.Today)
+                                                                                                                                  .Format("M/d/yyyy")
+
+        )
+
+        @(Html.Kendo().Button()
+                                                                                                                                   .Name("refreshButton")
+                                                                                                                                   .Icon("refresh")
+                                                                                                                                   .Content("Refresh Button")
+                                                                                                                                   .HtmlAttributes(new { type = "button" })
+                                                                                                                                   .Events(ev => ev.Click("refresh"))
+        )
+
+    </div>
+
+    @*<div class="box" style="width: 95%; float: inherit;">
+
+            @(Html.Kendo().Grid<MesWeb.Models.uspObteneParosMotivoXDia_Result>()
+                                                   .Name("gridParosMotivoDia")
+                                                   .DataSource(dataSource => dataSource
+                                                   .Ajax()
+                                                   .Read(read => read.Action("ObtenerParosMotivoXDia", "ParoMotivo").Data("additionalData"))
+                                                    //.ServerOperation(true)
+                                                    )
+                                               .Columns(columns =>
+                                               {
+                                                   columns.Bound(p => p.Motivo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Codigo");
+                                                   columns.Bound(p => p.Descripcion).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" });
+                                                   columns.Bound(p => p.Inicio).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                   columns.Bound(p => p.Fin).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                   columns.Bound(p => p.TotalTiempo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Total Tiempo (min)");
+
+                                               })
+                                               .HtmlAttributes(new { style = "height:550px;" })
+
+                                                           .Pageable(pageable => pageable
+                                                               //.Refresh(true)
+                                                               .PageSizes(new int[] { 25, 50, 100 })
+                                                           )
+                                                           .HtmlAttributes(new { Style = "text-align: center;" })
+                    //.Pageable()
+                    //.Sortable()
+                    //.Filterable()
+
+                    //.Reorderable(r => r.Columns(true))
+                    //.Resizable(r => r.Columns(true))
+                    //.ColumnMenu()
+                    //.Groupable()
+                    //.Scrollable()
+            )
+
+        </div>*@
+
+    <div class="box" style="width: 95%; float: inherit;">
+
+        @(Html.Kendo().Grid<PBIoT.GUI.Models.uspObtenerParosMotivoXMes_Result>()
+                                                       .Name("gridParosMotivoMes")
+                                                       .Editable(editable => editable.Mode(GridEditMode.InLine))
+                                                       .DataSource(dataSource => dataSource
+                                                       .Ajax()
+                                                       .Events(events => events
+                                                       .Sync("sync_handler")
+                                                       )
+                                                       .Model(model =>
+                                                       {
+                                                           model.Id(p => p.Motivo);
+                                                           model.Field(p => p.Inicio).Editable(false);
+                                                           model.Field(p => p.Fin).Editable(false);
+                                                           model.Field(p => p.Descripcion).Editable(false);
+                                                           model.Field(p => p.TotalTiempo).Editable(false);
+                                                       })
+                                                       .Read(read => read.Action("ObtenerParosMotivoXMes", "ParoMotivo").Data("additionalData"))
+                                                       .Update(update => update.Action("ActualizarParoMotivo", "ParoMotivo"))
+                                                        //.ServerOperation(true)
+                                                        )
+                                                   .Columns(columns =>
+                                                   {
+                                                       columns.Bound(p => p.IdParo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("IdParo").Visible(false);
+                                                       columns.Bound(p => p.Motivo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Codigo");
+                                                       columns.Bound(p => p.Descripcion).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" });
+                                                       columns.Bound(p => p.Inicio).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                       columns.Bound(p => p.Fin).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                       columns.Bound(p => p.TotalTiempo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Total Tiempo (min)");
+                                                       columns.Command(command => command.Edit()).Width(250);
+
+                                                   })
+                                                   .HtmlAttributes(new { style = "height:550px;" })
+
+                                                               .Pageable(pageable => pageable
+                                                                   //.Refresh(true)
+                                                                   .PageSizes(new int[] { 25, 50, 100 })
+                                                               )
+                                                               .HtmlAttributes(new { Style = "text-align: center;" })
+                //.Pageable()
+                //.Sortable()
+                //.Filterable()
+
+                //.Reorderable(r => r.Columns(true))
+                //.Resizable(r => r.Columns(true))
+                //.ColumnMenu()
+                //.Groupable()
+                //.Scrollable()
+        )
+
+    </div>
+
+    @(Html.Kendo().Notification()
+                                             .Name("popupNotification")
+    )
+
+</div>
+
+<script>
+
+    function additionalData() {
+        //var a = $("#Ref").data("kendoDropDownList").filterInput.val();
+        //alert(a);
+        return {
+            fecha: document.getElementById("Fecha").value
+
+        };
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    function sync_handler(e) {
+
+
+        this.read();
+
+
+        var popupNotification = $("#popupNotification").data("kendoNotification");
+        popupNotification.show(kendo.toString("Acción Ejecutada Exitosamente"));
+
+
+    }
+
+
+    function refresh() {
+        try {
+
+
+            $("#gridParosMotivoMes").data("kendoGrid").dataSource.read().refresh;
+
+            //var valorParoFiltro = $("#ParosSelect").data("kendoDropDownList").value();
+            ////alert(valorTendencia)
+
+            //if (valorParoFiltro == 2) {
+            //    $("#gridParosMotivoMes").data("kendoGrid").dataSource.read().refresh;
+            //    $("#gridParosMotivoDia").hide();
+            //    $("#gridParosMotivoMes").show();
+            //}
+            //if (valorParoFiltro == 1) {
+
+            //    $("#gridParosMotivoDia").data("kendoGrid").dataSource.read().refresh;
+            //    $("#gridParosMotivoDia").show();
+            //    $("#gridParosMotivoMes").hide();
+            //}
+
+            //$("#gridTop5Paros").data("kendoGrid").dataSource.read({ Msgtext: "Msgtext", Cantidad: "Cantidad" });
+
+        } catch (ex) {
+            alert(ex);
+        }
+
+    }
+
+    function ajaxCallFailed(response) {
+        alert("Ajax call Failed ");
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("#gridParosMotivoDia").hide();
+        //$("#gridParosMotivoMes").hide();
+        $("form.k-edit-form").kendoValidator();
+    });
+</script>

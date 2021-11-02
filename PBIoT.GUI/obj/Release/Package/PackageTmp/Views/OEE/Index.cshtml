@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "OEE";
+}
+
+<div id="content">
+
+    <h2>Tendencia</h2>
+    <div class="box configPanel">
+
+
+        @(Html.Kendo().DatePicker()
+                                                                                                                       .Name("Fecha")
+                                                                                                                       .Value(DateTime.Now.AddHours(-5))
+                                                                                                                       .Format("yyyy-MM-dd")
+
+
+        )
+
+
+
+        @(Html.Kendo().Button()
+                                                                                                                                                                                                                   .Name("refreshButton")
+                                                                                                                                                                                                                   .Icon("refresh")
+                                                                                                                                                                                                                   .Content("Refresh Button")
+                                                                                                                                                                                                                   .HtmlAttributes(new { type = "button" })
+                                        .Events(ev => ev.Click("refresh"))
+        )
+
+    </div>
+
+    <div>
+
+        @(Html.Kendo().Chart<PBIoT.GUI.Models.uspObtenerOEEXHora_Result>
+                                                                                                                      ()
+                                                                                                                      .Name("GraficaTendenciaOEE")
+                                                                                                                      .Title("TENDENCIA OEE")
+                                                                                                                      .Legend(legend => legend
+                                                                                                                      .Visible(true)
+                                                                                                                      )
+                                                                                                                      //.Title("The Boeing Company \n (NYSE:BA)")
+                                                                                                                      .DataSource(ds => ds.Read(read => read
+                                                                                                                      .Action("usp_ObtenerGreaficaOEEXHora", "OEE").Data("additionalData")
+                                                                                                                      ))
+
+                                                                                                                      .Series(series =>
+                                                                                                                      series.Line("OEE", "FechaHora").Name("OEE").Color("#F11E10")
+                                                                                                                      //.Notes(notes => notes.Label(label => label.Position(ChartNoteLabelPosition.Outside)).Position(ChartNotePosition.Bottom))
+                                                                                                                      .Labels(labels => labels
+                                                                                                                      //.Template("#= value#")
+                                                                                                                      .Background("transparent")
+                                                                                                                      .Visible(true)
+                                                                                                                      .Format("{0:n0}%")
+                                                                                                                      )
+                                                                                                                      )
+
+                                                                                                                          .CategoryAxis(axis => axis
+                                                                                                       .Labels(labels => labels.Rotation(-90))
+                                                                                                       .MajorGridLines(lines => lines.Visible(false))
+                                                                                                       .Crosshair(c => c.Visible(true))
+                                                                                                                )
+                                                                                                       .ValueAxis(axis => axis.Numeric()
+                                                                                                       .Labels(labels => labels.Format("{0:n0}%"))
+                                                                                                       .Line(lines => lines.Visible(false))
+                                                                                                            //.MajorUnit(100)
+                                                                                                            //.Line(line => line.Visible(false))
+                                                                                                            // .MinorGridLines(lines => lines.Visible(true))
+                                                                                                            )
+                                                                                                   .Tooltip(tooltip => tooltip
+                                                                                                   .Visible(true)
+                                                                                                   .Shared(true)
+                                                                                                   .Template("#= series.name #: #= value #")
+                                                                                                   .Format("{0:n0}%")
+                                                                                                       )
+
+
+
+        )
+    </div>
+
+    <div>
+
+        @(Html.Kendo().Chart<PBIoT.GUI.Models.uspObtenerVariablesOeeHora_Result>
+                                                                                                                      ()
+                                                                                                                      .Name("GraficaTendenciaVariablesOEE")
+                                                                                                                      .Title("TENDENCIA CALIDAD-RENDIMIENTO-DISPONIBILIDAD")
+                                                                                                                      .Legend(legend => legend
+                                                                                                                      .Visible(true)
+                                                                                                                      )
+                                                                                                                      //.Title("The Boeing Company \n (NYSE:BA)")
+                                                                                                                      .DataSource(ds => ds.Read(read => read
+                                                                                                                      .Action("usp_ObtenerGreaficaVariablesOEEXHora", "OEE").Data("additionalData")
+                                                                                                                      ))
+
+                                                                                                                      .Series(series =>
+                                                                                                                      series.Line("Calidad", "FechaHora").Name("Calidad").Color("#0DCA30")
+                                                                                                                      //.Notes(notes => notes.Label(label => label.Position(ChartNoteLabelPosition.Outside)).Position(ChartNotePosition.Bottom))
+                                                                                                                      .Labels(labels => labels
+                                                                                                                      //.Template("#= value#")
+                                                                                                                      .Background("transparent")
+                                                                                                                      .Visible(true)
+                                                                                                                      .Format("{0:n0}%")
+                                                                                                                      )
+                                                                                                                      )
+                                                                                                                       .Series(series =>
+                                                                                                                      series.Line("Rendimiento", "FechaHora").Name("Rendimiento").Color("#2293AC")
+                                                                                                                      //.Notes(notes => notes.Label(label => label.Position(ChartNoteLabelPosition.Outside)).Position(ChartNotePosition.Bottom))
+                                                                                                                      .Labels(labels => labels
+                                                                                                                      //.Template("#= value#")
+                                                                                                                      .Background("transparent")
+                                                                                                                      .Visible(true)
+                                                                                                                      .Format("{0:n0}%")
+                                                                                                                      )
+                                                                                                                      )
+                                                                                                                        .Series(series =>
+                                                                                                                      series.Line("Disponibilidad", "FechaHora").Name("Disponibilidad").Color("#FAFE04")
+                                                                                                                      //.Notes(notes => notes.Label(label => label.Position(ChartNoteLabelPosition.Outside)).Position(ChartNotePosition.Bottom))
+                                                                                                                      .Labels(labels => labels
+                                                                                                                      //.Template("#= value#")
+                                                                                                                      .Background("transparent")
+                                                                                                                      .Visible(true)
+                                                                                                                      .Format("{0:n0}%")
+                                                                                                                      )
+                                                                                                                      )
+                                                                                                                          .CategoryAxis(axis => axis
+                                                                                                       .Labels(labels => labels.Rotation(-90))
+                                                                                                       .MajorGridLines(lines => lines.Visible(false))
+                                                                                                       .Crosshair(c => c.Visible(true))
+                                                                                                                )
+                                                                                                       .ValueAxis(axis => axis.Numeric()
+                                                                                                       .Labels(labels => labels.Format("{0:n0}%"))
+                                                                                                       .Line(lines => lines.Visible(false))
+                                                                                                            //.MajorUnit(100)
+                                                                                                            //.Line(line => line.Visible(false))
+                                                                                                            // .MinorGridLines(lines => lines.Visible(true))
+                                                                                                            )
+                                                                                                   .Tooltip(tooltip => tooltip
+                                                                                                   .Visible(true)
+                                                                                                   .Shared(true)
+                                                                                                   .Template("#= series.name #: #= value #")
+                                                                                                   .Format("{0:n0}%")
+                                                                                                       )
+
+
+
+        )
+    </div>
+
+
+
+</div>
+
+<script>
+
+    function additionalData() {
+        //var a = $("#Ref").data("kendoDropDownList").filterInput.val();
+        //alert(a);
+        return {
+            fecha: document.getElementById("Fecha").value,
+            //fechaFin: document.getElementById("FechaFin").value,
+            //valorTendencia: $("#Tendencia").data("kendoDropDownList").value()
+
+        };
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    function refresh() {
+        try {
+
+
+            $("#GraficaTendenciaVariablesOEE").data("kendoChart").dataSource.read();
+            $("#GraficaTendenciaOEE").data("kendoChart").dataSource.read();
+
+            //var fecha = document.getElementById("Fecha").value;
+            //var chart = $("#GraficaTendenciaFlujo").getKendoStockChart();
+            //chart._navigator.options.select.from = new Date("2020-01-01 00:00:00.000");
+            //chart._navigator.options.select.to = new Date(fecha);
+
+        } catch (ex) {
+            alert(ex);
+        }
+
+    }
+
+    function ajaxCallFailed(response) {
+        alert("Ajax call Failed ");
+    }
+
+</script>

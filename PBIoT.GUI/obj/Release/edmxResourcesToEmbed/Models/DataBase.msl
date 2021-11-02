@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PBIoTDBModelStoreContainer" CdmEntityContainer="PBIoTDBEntities">
+    <FunctionImportMapping FunctionImportName="uspObtenerVariablePLCGraficaXMinuto" FunctionName="PBIoTDBModel.Store.uspObtenerVariablePLCGraficaXMinuto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerVariablePLCGraficaXMinuto_Result">
+          <ScalarProperty Name="HR" ColumnName="HR" />
+          <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspObtenerVariablesOeeHora" FunctionName="PBIoTDBModel.Store.uspObtenerVariablesOeeHora">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerVariablesOeeHora_Result">
+          <ScalarProperty Name="Calidad" ColumnName="Calidad" />
+          <ScalarProperty Name="Rendimiento" ColumnName="Rendimiento" />
+          <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspObtenerOEEXHora" FunctionName="PBIoTDBModel.Store.uspObtenerOEEXHora">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerOEEXHora_Result">
+          <ScalarProperty Name="OEE" ColumnName="OEE" />
+          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspGuardarParoPendientePorFinalizar" FunctionName="PBIoTDBModel.Store.uspGuardarParoPendientePorFinalizar" />
+    <FunctionImportMapping FunctionImportName="uspObtenerParoPorFinalizar" FunctionName="PBIoTDBModel.Store.uspObtenerParoPorFinalizar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerParoPorFinalizar_Result">
+          <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+          <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+          <ScalarProperty Name="Fin" ColumnName="Fin" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspObtenerInformacionParosXDia" FunctionName="PBIoTDBModel.Store.uspObtenerInformacionParosXDia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerInformacionParosXDia_Result">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="TiemposPerdidos" ColumnName="TiemposPerdidos" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspObtenerTop5ParosXDia" FunctionName="PBIoTDBModel.Store.uspObtenerTop5ParosXDia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerTop5ParosXDia_Result">
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+          <ScalarProperty Name="Fin" ColumnName="Fin" />
+          <ScalarProperty Name="TotalTiempo" ColumnName="TotalTiempo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspActualizarMotivoParo" FunctionName="PBIoTDBModel.Store.uspActualizarMotivoParo" />
+    <FunctionImportMapping FunctionImportName="uspObtenerParosMotivoXMes" FunctionName="PBIoTDBModel.Store.uspObtenerParosMotivoXMes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerParosMotivoXMes_Result">
+          <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+          <ScalarProperty Name="Fin" ColumnName="Fin" />
+          <ScalarProperty Name="TotalTiempo" ColumnName="TotalTiempo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspObtenerTodosParosPendientesFinalizar" FunctionName="PBIoTDBModel.Store.uspObtenerTodosParosPendientesFinalizar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerTodosParosPendientesFinalizar_Result">
+          <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+          <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+          <ScalarProperty Name="Fin" ColumnName="Fin" />
+          <ScalarProperty Name="TiempoPerdido" ColumnName="TiempoPerdido" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

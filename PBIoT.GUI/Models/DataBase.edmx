@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PBIoTDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="uspActualizarMotivoParo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="IdParo" Type="bigint" Mode="In" />
+          <Parameter Name="Motivo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspGuardarParoPendientePorFinalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="IdParo" Type="bigint" Mode="In" />
+          <Parameter Name="Motivo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerInformacionParosXDia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerOEEXHora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerParoPorFinalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion" />
+        <Function Name="uspObtenerParosMotivoXMes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerTodosParosPendientesFinalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion" />
+        <Function Name="uspObtenerTop5ParosXDia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerVariablePLCGraficaXMinuto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="uspObtenerVariablesOeeHora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Produccion">
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="PBIoTDBModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PBIoTDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PBIoTDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="uspObtenerVariablePLCGraficaXMinuto" ReturnType="Collection(PBIoTDBModel.uspObtenerVariablePLCGraficaXMinuto_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerVariablesOeeHora" ReturnType="Collection(PBIoTDBModel.uspObtenerVariablesOeeHora_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerOEEXHora" ReturnType="Collection(PBIoTDBModel.uspObtenerOEEXHora_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspGuardarParoPendientePorFinalizar">
+            <Parameter Name="IdParo" Mode="In" Type="Int64" />
+            <Parameter Name="Motivo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerParoPorFinalizar" ReturnType="Collection(PBIoTDBModel.uspObtenerParoPorFinalizar_Result)" />
+          <FunctionImport Name="uspObtenerInformacionParosXDia" ReturnType="Collection(PBIoTDBModel.uspObtenerInformacionParosXDia_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerTop5ParosXDia" ReturnType="Collection(PBIoTDBModel.uspObtenerTop5ParosXDia_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspActualizarMotivoParo">
+            <Parameter Name="IdParo" Mode="In" Type="Int64" />
+            <Parameter Name="Motivo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerParosMotivoXMes" ReturnType="Collection(PBIoTDBModel.uspObtenerParosMotivoXMes_Result)">
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="uspObtenerTodosParosPendientesFinalizar" ReturnType="Collection(PBIoTDBModel.uspObtenerTodosParosPendientesFinalizar_Result)" />
+        </EntityContainer>
+        <ComplexType Name="uspObtenerVariablePLCGraficaXMinuto_Result">
+          <Property Type="Double" Name="HR" Nullable="true" />
+          <Property Type="Double" Name="Temperatura" Nullable="true" />
+          <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerVariablesOeeHora_Result">
+          <Property Type="Double" Name="Calidad" Nullable="true" />
+          <Property Type="Double" Name="Rendimiento" Nullable="true" />
+          <Property Type="Double" Name="Disponibilidad" Nullable="true" />
+          <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerOEEXHora_Result">
+          <Property Type="Double" Name="OEE" Nullable="true" />
+          <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerParoPorFinalizar_Result">
+          <Property Type="Int64" Name="IdParo" Nullable="false" />
+          <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerInformacionParosXDia_Result">
+          <Property Type="String" Name="Codigo" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="TiemposPerdidos" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerTop5ParosXDia_Result">
+          <Property Type="String" Name="Motivo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TotalTiempo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerParosMotivoXMes_Result">
+          <Property Type="Int64" Name="IdParo" Nullable="false" />
+          <Property Type="String" Name="Motivo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TotalTiempo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspObtenerTodosParosPendientesFinalizar_Result">
+          <Property Type="Int64" Name="IdParo" Nullable="false" />
+          <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TiempoPerdido" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PBIoTDBModelStoreContainer" CdmEntityContainer="PBIoTDBEntities" >
+          <FunctionImportMapping FunctionImportName="uspObtenerVariablePLCGraficaXMinuto" FunctionName="PBIoTDBModel.Store.uspObtenerVariablePLCGraficaXMinuto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerVariablePLCGraficaXMinuto_Result">
+                <ScalarProperty Name="HR" ColumnName="HR" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspObtenerVariablesOeeHora" FunctionName="PBIoTDBModel.Store.uspObtenerVariablesOeeHora">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerVariablesOeeHora_Result">
+                <ScalarProperty Name="Calidad" ColumnName="Calidad" />
+                <ScalarProperty Name="Rendimiento" ColumnName="Rendimiento" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspObtenerOEEXHora" FunctionName="PBIoTDBModel.Store.uspObtenerOEEXHora">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerOEEXHora_Result">
+                <ScalarProperty Name="OEE" ColumnName="OEE" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGuardarParoPendientePorFinalizar" FunctionName="PBIoTDBModel.Store.uspGuardarParoPendientePorFinalizar" />
+          <FunctionImportMapping FunctionImportName="uspObtenerParoPorFinalizar" FunctionName="PBIoTDBModel.Store.uspObtenerParoPorFinalizar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerParoPorFinalizar_Result">
+                <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Fin" ColumnName="Fin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspObtenerInformacionParosXDia" FunctionName="PBIoTDBModel.Store.uspObtenerInformacionParosXDia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerInformacionParosXDia_Result">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="TiemposPerdidos" ColumnName="TiemposPerdidos" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspObtenerTop5ParosXDia" FunctionName="PBIoTDBModel.Store.uspObtenerTop5ParosXDia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerTop5ParosXDia_Result">
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Fin" ColumnName="Fin" />
+                <ScalarProperty Name="TotalTiempo" ColumnName="TotalTiempo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspActualizarMotivoParo" FunctionName="PBIoTDBModel.Store.uspActualizarMotivoParo" />
+          <FunctionImportMapping FunctionImportName="uspObtenerParosMotivoXMes" FunctionName="PBIoTDBModel.Store.uspObtenerParosMotivoXMes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerParosMotivoXMes_Result">
+                <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Fin" ColumnName="Fin" />
+                <ScalarProperty Name="TotalTiempo" ColumnName="TotalTiempo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspObtenerTodosParosPendientesFinalizar" FunctionName="PBIoTDBModel.Store.uspObtenerTodosParosPendientesFinalizar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PBIoTDBModel.uspObtenerTodosParosPendientesFinalizar_Result">
+                <ScalarProperty Name="IdParo" ColumnName="IdParo" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Fin" ColumnName="Fin" />
+                <ScalarProperty Name="TiempoPerdido" ColumnName="TiempoPerdido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Tiempos Perdidos";
+}
+
+<div id="content">
+    <h2>Tiempos Perdidos</h2>
+
+    <div class="box configPanel">
+
+
+        @*@(Html.Kendo().DropDownList()
+                                                          .Name("ParosSelect")
+                                                          .DataTextField("Text")
+                                                          .DataValueField("Value")
+                                                          //.Events(e => e.Change("change"))
+                                                          .BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "DIA",
+                  Value = "1"
+              },
+              new SelectListItem() {
+                  Text = "MES",
+                  Value = "2"
+              },
+                                                              //new SelectListItem() {
+                                                              //    Text = "MES",
+                                                              //    Value = "3"
+                                                              //}
+                                                          })
+                                                          .Value("1")
+                                                          .HtmlAttributes(new { style = "width: 10%" })
+
+        )*@
+
+        @(Html.Kendo().DatePicker()
+                                                                                          .Name("Fecha")
+                                                                                          .Value(DateTime.Today)
+                                                                                          .Format("M/d/yyyy")
+
+        )
+
+        @(Html.Kendo().Button()
+                                                                                           .Name("refreshButton")
+                                                                                           .Icon("refresh")
+                                                                                           .Content("Refresh Button")
+                                                                                           .HtmlAttributes(new { type = "button" })
+                                                                                           .Events(ev => ev.Click("refresh"))
+        )
+
+    </div>
+
+    <div class="box" style="width: 95%; float: inherit;">
+        @*<h3 class="redTitle">
+                Tiempos Perdidos
+            </h3>*@
+        @(Html.Kendo().Chart<PBIoT.GUI.Models.uspObtenerInformacionParosXDia_Result>()
+                                                                    .Name("chartParosDia")
+                                                                    .Title("TIempos Perdidos (min) Dia")
+                                                                    .Legend(legend => legend
+                                                                        .Visible(true)
+                                                                    )
+                                                                    .DataSource(ds =>
+                                                                        ds.Read(read => read.Action("ObtenerParosXDia", "Paro").Data("additionalData"))
+                                                                )
+                                                                    .Series(series =>
+                                                                        series.Pie("TiemposPerdidos", "Descripcion", "Color")
+                                                                        .Padding(50)
+                                                                        .Labels(labels => labels
+                                                                .Template("#= category #: \n #= value# - #= kendo.format('{0:P}', percentage)#")
+                                                                .Background("transparent")
+                                                                .Visible(true)
+                                                                .Color("black")
+                                                            )
+                                                                    //.StartAngle(150)
+                                                                    //.ColorField("blue")
+                                                                    )
+
+                                                         .Tooltip(tooltip => tooltip
+                                                                .Visible(true)
+                                                                .Format("{0:N0}")
+                                                                .Template("#= category # - #= kendo.format('{0:P}', percentage)#")
+                                                        ))
+
+
+    </div>
+
+    <div class="box" style="width: 95%; float: inherit;">
+
+        @(Html.Kendo().Grid<PBIoT.GUI.Models.uspObtenerTop5ParosXDia_Result>()
+                               .Name("gridTop5ParosDia")
+                               .DataSource(dataSource => dataSource
+                               .Ajax()
+                               .Read(read => read.Action("ObtenerTop5ParosXDia", "Paro").Data("additionalData"))
+                                //.ServerOperation(true)
+                                )
+                           .Columns(columns =>
+                           {
+                               columns.Bound(p => p.Motivo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Codigo");
+                               columns.Bound(p => p.Descripcion).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" });
+                               columns.Bound(p => p.Inicio).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                               columns.Bound(p => p.Fin).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                               columns.Bound(p => p.TotalTiempo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Total Tiempo (min)");
+
+                           })
+                           .HtmlAttributes(new { style = "height:550px;" })
+
+                                       .Pageable(pageable => pageable
+                                           //.Refresh(true)
+                                           .PageSizes(new int[] { 25, 50, 100 })
+                                       )
+                                       .HtmlAttributes(new { Style = "text-align: center;" })
+                //.Pageable()
+                //.Sortable()
+                //.Filterable()
+
+                //.Reorderable(r => r.Columns(true))
+                //.Resizable(r => r.Columns(true))
+                //.ColumnMenu()
+                //.Groupable()
+                //.Scrollable()
+        )
+
+    </div>
+
+    
+
+    </div>
+
+</div>
+
+<script>
+
+    function additionalData() {
+        //var a = $("#Ref").data("kendoDropDownList").filterInput.val();
+        //alert(a);
+        return {
+            fecha: document.getElementById("Fecha").value
+
+        };
+    }
+
+</script>
+<script type="text/javascript">
+
+    function refresh() {
+        try {
+
+            $("#chartParosDia").data("kendoChart").dataSource.read();
+            $("#gridTop5ParosDia").data("kendoGrid").dataSource.read().refresh;
+
+            //var valorParoFiltro = $("#ParosSelect").data("kendoDropDownList").value();
+            ////alert(valorTendencia)
+
+            //if (valorParoFiltro == 2) {
+            //    $("#chartParosMes").data("kendoChart").dataSource.read();
+            //    $("#gridTop5ParosMes").data("kendoGrid").dataSource.read().refresh;
+            //    $("#chartParosDia").hide();
+            //    $("#gridTop5ParosDia").hide();
+            //    $("#chartParosMes").show();
+            //    $("#gridTop5ParosMes").show();
+            //}
+            //if (valorParoFiltro == 1) {
+            //    $("#chartParosDia").data("kendoChart").dataSource.read();
+            //    $("#gridTop5ParosDia").data("kendoGrid").dataSource.read().refresh;
+            //    $("#chartParosDia").show();
+            //    $("#gridTop5ParosDia").show();
+            //    $("#chartParosMes").hide();
+            //    $("#gridTop5ParosMes").hide();
+            //}
+
+            //$("#gridTop5Paros").data("kendoGrid").dataSource.read({ Msgtext: "Msgtext", Cantidad: "Cantidad" });
+
+        } catch (ex) {
+            alert(ex);
+        }
+
+    }
+
+    function ajaxCallFailed(response) {
+        alert("Ajax call Failed ");
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#chartParosDia").show();
+        $("#gridTop5ParosDia").show();
+        //$("#chartParosMes").hide();
+        //$("#gridTop5ParosMes").hide();
+        $("form.k-edit-form").kendoValidator();
+    });
+</script>
+
+

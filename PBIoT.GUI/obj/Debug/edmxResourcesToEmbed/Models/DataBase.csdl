@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PBIoTDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PBIoTDBEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="uspObtenerVariablePLCGraficaXMinuto" ReturnType="Collection(PBIoTDBModel.uspObtenerVariablePLCGraficaXMinuto_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerVariablesOeeHora" ReturnType="Collection(PBIoTDBModel.uspObtenerVariablesOeeHora_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerOEEXHora" ReturnType="Collection(PBIoTDBModel.uspObtenerOEEXHora_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspGuardarParoPendientePorFinalizar">
+      <Parameter Name="IdParo" Mode="In" Type="Int64" />
+      <Parameter Name="Motivo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerParoPorFinalizar" ReturnType="Collection(PBIoTDBModel.uspObtenerParoPorFinalizar_Result)" />
+    <FunctionImport Name="uspObtenerInformacionParosXDia" ReturnType="Collection(PBIoTDBModel.uspObtenerInformacionParosXDia_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerTop5ParosXDia" ReturnType="Collection(PBIoTDBModel.uspObtenerTop5ParosXDia_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspActualizarMotivoParo">
+      <Parameter Name="IdParo" Mode="In" Type="Int64" />
+      <Parameter Name="Motivo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerParosMotivoXMes" ReturnType="Collection(PBIoTDBModel.uspObtenerParosMotivoXMes_Result)">
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspObtenerTodosParosPendientesFinalizar" ReturnType="Collection(PBIoTDBModel.uspObtenerTodosParosPendientesFinalizar_Result)" />
+  </EntityContainer>
+  <ComplexType Name="uspObtenerVariablePLCGraficaXMinuto_Result">
+    <Property Type="Double" Name="HR" Nullable="true" />
+    <Property Type="Double" Name="Temperatura" Nullable="true" />
+    <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="16" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerVariablesOeeHora_Result">
+    <Property Type="Double" Name="Calidad" Nullable="true" />
+    <Property Type="Double" Name="Rendimiento" Nullable="true" />
+    <Property Type="Double" Name="Disponibilidad" Nullable="true" />
+    <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="13" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerOEEXHora_Result">
+    <Property Type="Double" Name="OEE" Nullable="true" />
+    <Property Type="String" Name="FechaHora" Nullable="true" MaxLength="13" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerParoPorFinalizar_Result">
+    <Property Type="Int64" Name="IdParo" Nullable="false" />
+    <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerInformacionParosXDia_Result">
+    <Property Type="String" Name="Codigo" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="TiemposPerdidos" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Color" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerTop5ParosXDia_Result">
+    <Property Type="String" Name="Motivo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="TotalTiempo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerParosMotivoXMes_Result">
+    <Property Type="Int64" Name="IdParo" Nullable="false" />
+    <Property Type="String" Name="Motivo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="TotalTiempo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspObtenerTodosParosPendientesFinalizar_Result">
+    <Property Type="Int64" Name="IdParo" Nullable="false" />
+    <Property Type="DateTime" Name="Inicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Fin" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="TiempoPerdido" Nullable="true" />
+  </ComplexType>
+</Schema>

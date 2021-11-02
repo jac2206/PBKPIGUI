@@ -1,0 +1,332 @@
+﻿
+@{
+    ViewBag.Title = "Paro Pendiente";
+}
+
+<div id="content">
+    <h2>ParosPendientes</h2>
+
+    <div class="box" style="width: 95%; float: inherit;">
+
+        @(Html.Kendo().Grid<PBIoT.GUI.Models.uspObtenerTodosParosPendientesFinalizar_Result>()
+                                                               .Name("gridParosMotivoMes")
+                                                               //.Editable(editable => editable.Mode(GridEditMode.InLine))
+                                                               .DataSource(dataSource => dataSource
+                                                               .Ajax()
+                                                               //.Events(events => events
+                                                               //.Sync("sync_handler")
+                                                               //)
+
+                                                               .Read(read => read.Action("ObtenerTodosParosFinalizar", "ParoPendiente"))
+
+                                                                )
+                                                           .Columns(columns =>
+                                                           {
+                                                               columns.Bound(p => p.IdParo).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("IdParo");
+                                                               columns.Bound(p => p.Inicio).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                               columns.Bound(p => p.Fin).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Format("{0:d/M/yyyy HH:mm:ss}");
+                                                               columns.Bound(p => p.TiempoPerdido).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Total Tiempo (min)");
+                                                               //columns.Command(command => command.Edit()).Width(250);
+
+                                                           })
+                                                           .HtmlAttributes(new { style = "height:550px;" })
+
+                                                                       .Pageable(pageable => pageable
+                                                                           //.Refresh(true)
+                                                                           .PageSizes(new int[] { 25, 50, 100 })
+                                                                       )
+                                                                       .HtmlAttributes(new { Style = "text-align: center;" })
+        //.Pageable()
+        //.Sortable()
+        //.Filterable()
+
+        //.Reorderable(r => r.Columns(true))
+        //.Resizable(r => r.Columns(true))
+        //.ColumnMenu()
+        //.Groupable()
+        //.Scrollable()
+        )
+
+    </div>
+
+
+    <div class="box configPanel">
+
+        @(Html.Kendo().Dialog()
+                                                                        .Name("dialog")
+                                                                        .ButtonLayout("normal")
+                                                                        .Title("PAROS PENDIENTES")
+                                                                        .Content("<p>INGRESE EL CODIGO DEL MOTIVO DE PARO<p>" +
+                                                                          Html.Kendo().MaskedTextBox()
+                                                  .Name("IdParo")
+                                                  .HtmlAttributes(new { style = "width:10%;" })
+                                                  //.Value("35")
+                                                  .Enable(false)
+
+                                                                                  +
+                                                                                 Html.Kendo().MaskedTextBox()
+                                                  .Name("Inicio")
+                                                  .HtmlAttributes(new { style = "width:30%;" })
+                                                  //.Value("2019-10-16 14:43:16.963")
+                                                  .Enable(false)
+                                                  +
+                                                   Html.Kendo().MaskedTextBox()
+                                                  .Name("Fin")
+                                                  .HtmlAttributes(new { style = "width:30%;" })
+                                                  //.Value("2019-10-16 14:47:51.963")
+                                                  .Enable(false)
+                                                  +
+                                                   Html.Kendo().MaskedTextBox()
+                                                  .Name("CodigoParo")
+                                                  .HtmlAttributes(new { style = "width:15%;" })
+                                        //.Value("2019-10-16 14:47:51.963")
+                                        //.Enable(false)
+                                        //        Html.Kendo().NumericTextBox<int>()
+                                        //.Name("CodigoParo")
+                                        //.Spinners(false)
+                                        //.
+                                        ////.RestrictDecimals(true)
+                                        ////.Format("p0")
+                                        //.HtmlAttributes(new { style = "width: 15%", title = "Codigo Paro" })
+
+                                        )
+
+
+                                                                        .Width(600)
+                                                                        .Modal(false)
+                                                                        .Closable(true)
+                                                                        .Actions(actions =>
+                                                                        {
+                                                                            actions.Add().Text("Cancel");
+                                                                            actions.Add().Text("Ok").Primary(true).Action("OK");
+                                                                        })
+        )
+
+        @*<div>
+                @(Html.Kendo().Window().Name("ParosPendientes").Content(
+                                                                @<text>
+                                                                    <div class="alert-warning">
+                                                                        <strong id="Alarma" style="font-size:50px; color:black"></strong>
+
+                                                                    </div>
+
+                                                                </text>)
+                                                                                                                     .Title("PAROS PENDIENTES")
+                                                                                                                //.Draggable()
+                                                                                                                .Resizable()
+                                                                                                                .Width(800)
+                                                                                                                .Height(400)
+                                                                                                                .Visible(false)
+                                                                                                                .Actions(actions => actions.Close())
+                                                                                                                .Modal(true)
+                                                                                                                .Iframe(true)
+
+                )
+            </div>*@
+
+
+        @*<div class="box wide" style="z-index:10000">
+                <div class="box-col">
+                    <h4>API Functions</h4>
+                    @Html.Kendo().Button().Name("openDialogBtn").Content("Open").Events(ev => ev.Click("openDialog"))
+                    @Html.Kendo().Button().Name("closeDialogBtn").Content("Close").Events(ev => ev.Click("closeDialog"))
+                </div>
+            </div>*@
+
+        <div class="responsive-message"></div>
+
+    </div>
+</div>
+
+@*<script>
+        function openDialog(e) {
+            $("#dialog").data("kendoDialog").open();
+        }
+
+        function closeDialog(e) {
+            $("#dialog").data("kendoDialog").close();
+        }
+    </script>*@
+@*<style>
+      function onOK(e) {
+            kendoConsole.log("action :: OK");
+        }
+    </style>*@
+
+
+<script>
+    //var dialog = $("#dialog");
+    //var showBtn = $("#showDialogBtn");
+
+    function OK(e) {
+        //kendoConsole.log("action :: OK");
+        //var popup = $("#dialog").data("kendoDialog").open()
+        //popUpAbierto()
+        //var valorIdParo = $("#IdParo").data("kendoMaskedTextBox").value();
+        //var valorCodigoParo = $("#CodigoParo").data("kendoMaskedTextBox").value();
+        InsertarParoPendiente();
+        //alert(valorIdParo + "----------" + valorCodigoParo);
+
+        //return flag
+    }
+
+    //function popUpAbierto() {
+    //    //kendoConsole.log("action :: OK");
+    //    //var popup = $("#dialog").data("kendoDialog").open()
+    //    var flag = true;
+
+
+    //    return flag
+    //}
+
+</script>
+
+<script>
+    try {
+        setInterval(popUpParosPendientes, 5000);
+        function popUpParosPendientes() {
+            //var flag2 = popUpAbierto();
+            //if (flag2 == true) {
+            //    $("#dialog").data("kendoDialog").open();
+            //    controlador();
+            //}
+            if ($("#dialog").is(":visible")) {
+                //alert("abierto");
+            } else {
+                //alert("cerrradp")
+                ObtenerParosPendientes();
+            }
+            //ObtenerParosPendientes();
+            //$("#dialog").data("kendoDialog").open();
+
+
+            //$("#CodigoParo").data("kendoMaskedTextBox").value() = 0;
+        }
+    } catch (e) {
+
+    }
+</script>
+
+<script>
+   function ObtenerParosPendientes() {
+
+        try {
+
+              $("#CodigoParo").data("kendoMaskedTextBox").value("");
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ParosPendientesFinalizar", "ParoPendiente")',
+            //data: { "documentId2": documentIdSelect, "clientId": clientId, "pais": pais},
+            dataType: "json",
+            //contentType: "application/json",
+            success: function (returnValue) {
+                //alert(emp.text());
+                //alert(returnValue + documentIdSelect.toString())
+                //window.location = '/Download?file=' + returnValue;
+                //alert(returnValue + "______" + returnValue.IdParo)
+                if (returnValue.IdParo > 0) {
+                    $("#IdParo").data("kendoMaskedTextBox").value(returnValue.IdParo);
+                    $("#Inicio").data("kendoMaskedTextBox").value(returnValue.Inicio);
+                    $("#Fin").data("kendoMaskedTextBox").value(returnValue.Fin);
+                    $("#dialog").data("kendoDialog").open();
+
+
+                }
+                else {
+                    $("#dialog").data("kendoDialog").close();
+                }
+                @*var url = "@Url.Action("Download", "Disponibilidad")" + "?file=" + returnValue + "&documento=" + documentIdSelect.toString() + "&clientId=" + clientId + "&pais=" + pais;
+                 window.location.href = url;*@
+
+            },
+            error: function (emp) {
+                //alert(emp.text());
+                var popupNotification = $("#popupNotification").data("kendoNotification");
+                popupNotification.show(kendo.toString(emp), "error");
+            }
+            });
+
+            //alert("Descargando PDF");
+
+        }
+
+        catch (ex) {
+            alert(ex);
+        }
+
+    }
+</script>
+
+<script>
+   function InsertarParoPendiente() {
+
+        try {
+
+            var valorIdParo = $("#IdParo").data("kendoMaskedTextBox").value();
+            var ValorCodigoParo = $("#CodigoParo").data("kendoMaskedTextBox").value();
+
+              $.ajax({
+            type: "POST",
+                  url: '@Url.Action("GuardarParoPendiente", "ParoPendiente")',
+                  data: { "IdParo": valorIdParo, "CodigoParo": ValorCodigoParo},
+            dataType: "json",
+            //contentType: "application/json",
+                  success: function (returnValue) {
+                      $("#gridParosMotivoMes").data("kendoGrid").dataSource.read().refresh;
+
+                //alert(emp.text());
+                //alert(returnValue + documentIdSelect.toString())
+                //window.location = '/Download?file=' + returnValue;
+                //alert("sisas")
+                //var popupNotification = $("#popupNotification").data("kendoNotification");
+                //popupNotification.show(returnValue, "Guardar");
+                //if (returnValue.IdParo > 0) {
+                //    $("#IdParo").data("kendoMaskedTextBox").value(returnValue.IdParo);
+                //    $("#Inicio").data("kendoMaskedTextBox").value(returnValue.Inicio);
+                //    $("#Fin").data("kendoMaskedTextBox").value(returnValue.Fin);
+                //    $("#dialog").data("kendoDialog").open();
+                //}
+                //else {
+                //    $("#dialog").data("kendoDialog").close();
+                //}
+                @*var url = "@Url.Action("Download", "Disponibilidad")" + "?file=" + returnValue + "&documento=" + documentIdSelect.toString() + "&clientId=" + clientId + "&pais=" + pais;
+                 window.location.href = url;*@
+
+            },
+            error: function (emp) {
+                //alert(emp.text());
+                var popupNotification = $("#popupNotification").data("kendoNotification");
+                popupNotification.show(kendo.toString(emp), "error");
+            }
+            });
+
+            //alert("Descargando PDF");
+
+        }
+
+        catch (ex) {
+            alert(ex);
+        }
+
+    }
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#dialog").data("kendoDialog").close();
+        //if ($("#dialog").is(":visible")) {
+        //    alert("abierto");
+        //} else {
+        //    alert("cerrradp")
+        //}
+
+        //ObtenerParosPendientes();
+        //var popup = $("#dialog").data("kendoDialog").;
+        //alert(popup);
+        //$("#ParosPendientes").data("kendoWindow").open().center();
+        //$("#dialog").data("kendoDialog").open();
+    });
+</script>
+
+
